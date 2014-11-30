@@ -22,7 +22,7 @@ while True:
     list1 = data.split()
     #Check to see if the first word is "Winner",
     # meaning someone won the game so it should break the loop and close the connection
-    if list1[0] == "Winner":
+    if data == '':
         break
 
 s.close()

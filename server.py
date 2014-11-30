@@ -83,9 +83,9 @@ def switch_player(turn):
                 data = conn.recv(BufferSize)
                 print "received data: ", data
                 data_split = data.upper().split()
-            if len(data_split) == 3 and data_split[0] == 'MAKE' and data_split[1] == 'MOVE':
+            if len(data_split) == 2 and data_split[0] == 'PICK':
                 #Check to see if the spot on the board is taken
-                spot = data_split[2]
+                spot = data_split[1]
                 #It's spot-1 because the index of the array starts at 0, not 1.
                 if drawGamingBoard[int(spot) - 1] == " ":
                     #Put the move into the game board
@@ -116,9 +116,9 @@ def switch_player(turn):
                 data = conn2.recv(BufferSize)
                 print "received data: ", data
                 data_split = data.upper().split()
-            if len(data_split) == 3 and data_split[0] == 'MAKE' and data_split[1] == 'MOVE':
+            if len(data_split) == 2 and data_split[0] == 'PICK':
                 #Check to see if the spot on the board is taken
-                spot = data_split[2]
+                spot = data_split[1]
                 #It's spot-1 because the index of the array starts at 0, not 1.
                 if drawGamingBoard[int(spot) - 1] == " ":
                     #Put the move into the game board
@@ -235,22 +235,25 @@ while winner == 'N':
     #This checks for winners/ties in the game
     if winner == 'X':
         #This will print out the completed game board to the losing player
-        print_gaming_board()
         conn.send("\nWinner is X")
         conn2.send("\nWinner is X")
+        print_gaming_board()
+
         break
     if winner == 'O':
         #This will print out the completed game board to the losing player
-        print_gaming_board()
         conn.send("\nWinner is O")
         conn2.send("\nWinner is O")
+        print_gaming_board()
+
         break
     #The board will be filled at this point
     if turn_num == 9:
         #This will print out the completed game board to the other player
-        print_gaming_board()
         conn.send("\nThis game is a tie")
         conn2.send("\nThis game is a tie")
+        print_gaming_board()
+
         break
 
 #Close the connections to the 2 other clients after a winner is found
